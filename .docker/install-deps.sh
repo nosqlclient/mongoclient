@@ -8,9 +8,9 @@ apt-get update -y
 
 apt-get install -y --no-install-recommends curl ca-certificates bzip2 build-essential numactl python git wget bsdtar
 
-curl -O -L http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.1_1.1.0l-1~deb9u1_amd64.deb
-dpkg -i libssl1.1_1.1.0l-1~deb9u1_amd64.deb
-rm libssl1.1_1.1.0l-1~deb9u1_amd64.deb
+curl -O -L http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.1_1.1.0l-1~deb9u3_amd64.deb
+dpkg -i libssl1.1_1.1.0l-1~deb9u3_amd64.deb
+rm libssl1.1_1.1.0l-1~deb9u3_amd64.deb
 
 dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"
 

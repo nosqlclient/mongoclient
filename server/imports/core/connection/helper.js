@@ -1,6 +1,4 @@
-const ConnectionHelper = function () {
-
-};
+const ConnectionHelper = function () {};
 
 ConnectionHelper.prototype = {
   changeUsernameAndPasswordFromConnectionUrl(connection, username, password) {
@@ -20,7 +18,9 @@ ConnectionHelper.prototype = {
 
   extractDBFromConnectionUrl(connection) {
     let options = '';
-    if (connection.url.indexOf('?') !== -1) options = `?${connection.url.split('?')[1]}`;
+    if (connection.url.indexOf('?') !== -1) {
+      options = `?${connection.url.split('?')[1]}`;
+    }
 
     const splited = connection.url.split('/');
     if (splited.length <= 3) connection.url += `/${options}`;
@@ -32,27 +32,36 @@ ConnectionHelper.prototype = {
 
   putCorrectDBToConnectionUrl(connection) {
     let options = '';
-    if (connection.url.indexOf('?') !== -1) options = `?${connection.url.split('?')[1]}`;
+    if (connection.url.indexOf('?') !== -1) {
+      options = `?${connection.url.split('?')[1]}`;
+    }
 
     const splited = connection.url.split('/');
-    if (splited.length <= 3) connection.url += `/${connection.databaseName}${options}`;
-    else {
+    if (splited.length <= 3) {
+      connection.url += `/${connection.databaseName}${options}`;
+    } else {
       splited[3] = '';
-      connection.url = splited.join('/') + connection.databaseName + options;
+      connection.url =
+        splited.slice(0, 3).join('/') + `/${connection.databaseName}${options}`;
     }
   },
 
   addAuthSourceToConnectionUrl(connection) {
     if (connection.url.indexOf('authSource') !== -1) return;
-    connection.url += this.addOptionToUrl(connection.url, 'authSource', connection.databaseName);
+    connection.url += this.addOptionToUrl(
+      connection.url,
+      'authSource',
+      connection.databaseName
+    );
   },
 
   addOptionToUrl(url, option, value) {
     if (!value) return '';
-    if (url.substring(url.lastIndexOf('/')).indexOf('?') === -1) { return `?${option}=${value}`; }
+    if (url.substring(url.lastIndexOf('/')).indexOf('?') === -1) {
+      return `?${option}=${value}`;
+    }
     return `&${option}=${value}`;
-  }
-
+  },
 };
 
 export default new ConnectionHelper();
